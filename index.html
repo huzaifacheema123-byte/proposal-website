@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For My Love 💍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, 'Times New Roman', serif;
+            background:
+                linear-gradient(rgba(255, 235, 242, 0.92), rgba(255, 220, 232, 0.96)),
+                radial-gradient(circle at top left, #ffb3c6, transparent 35%),
+                radial-gradient(circle at bottom right, #ffd6e0, transparent 35%);
+            color: #4a1026;
+            overflow-x: hidden;
+        }
+
+        .floating {
+            position: fixed;
+            top: -40px;
+            font-size: 26px;
+            animation: fall linear infinite;
+            opacity: 0.85;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-60px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(115vh) rotate(360deg);
+            }
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 3;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 35px 15px;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 880px;
+            background: rgba(255, 255, 255, 0.88);
+            border-radius: 30px;
+            padding: 36px;
+            box-shadow: 0 18px 50px rgba(130, 30, 65, 0.26);
+            animation: fadeIn 0.7s ease;
+            text-align: center;
+            border: 1px solid rgba(255, 120, 160, 0.36);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 43px;
+            color: #9b1747;
+            margin-bottom: 18px;
+        }
+
+        h2 {
+            font-size: 34px;
+            color: #9b1747;
+            margin-bottom: 18px;
+        }
+
+        p {
+            font-size: 19px;
+            line-height: 1.9;
+            margin: 14px 0;
+        }
+
+        .small {
+            font-size: 16px;
+            color: #7b2d45;
+        }
+
+        .emoji {
+            font-size: 42px;
+            margin: 18px 0;
+        }
+
+        .heart {
+            color: #c9184a;
+            font-weight: bold;
+        }
+
+        .quote {
+            background: #fff0f5;
+            border-left: 5px solid #c9184a;
+            padding: 18px;
+            border-radius: 18px;
+            text-align: left;
+            margin: 22px 0;
+        }
+
+        .promise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .promise {
+            background: #fff0f5;
+            border-radius: 18px;
+            padding: 18px;
+            box-shadow: 0 5px 15px rgba(120, 30, 60, 0.12);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        button {
+            border: none;
+            background: linear-gradient(135deg, #c9184a, #ff758f);
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 35px;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(140, 30, 70, 0.30);
+            transition: 0.25s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #9b1747, #c9184a);
+        }
+
+        .secondary-btn {
+            background: white;
+            color: #9b1747;
+            border: 2px solid #c9184a;
+            margin-left: 8px;
+        }
+
+        .secondary-btn:hover {
+            background: #fff0f5;
+        }
+
+        .proposal {
+            background: linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 240, 246, 0.96));
+            border: 2px solid #ff8fab;
+        }
+
+        .big-question {
+            font-size: 31px;
+            color: #8a1538;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-top: 20px;
+        }
+
+        .progress {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.82);
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: #8a1538;
+            box-shadow: 0 5px 15px rgba(130, 30, 65, 0.15);
+        }
+
+        .hidden-letter {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 18px;
+            margin-top: 20px;
+            border: 1px solid #ffd1dc;
+            text-align: left;
+        }
+
+        .ring-box {
+            font-size: 70px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.14); }
+            100% { transform: scale(1); }
+        }
+
+        form {
+            margin-top: 25px;
+            text-align: left;
+            background: #fff0f5;
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid #ffc2d1;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #8a1538;
+            margin-top: 14px;
+            margin-bottom: 7px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid #ffb3c6;
+            font-size: 16px;
+            font-family: Georgia, 'Times New Roman', serif;
+            outline: none;
+            background: white;
+        }
+
+        textarea {
+            min-height: 135px;
+            resize: vertical;
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: 15px;
+            color: #7b2d45;
+            margin-top: 12px;
+        }
+
+        .final-soft {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ffd1dc;
+        }
+
+        @media (max-width: 600px) {
+            .page {
+                padding: 25px 18px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 27px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .big-question {
+                font-size: 24px;
+            }
+
+            button {
+                font-size: 16px;
+                padding: 13px 22px;
+            }
+
+            .secondary-btn {
+                margin-left: 0;
+                display: block;
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="progress" id="progressText">Page 1 of 9</div>
+
+    <div class="floating" style="left: 4%; animation-duration: 9s;">🌹</div>
+    <div class="floating" style="left: 14%; animation-duration: 12s;">🌸</div>
+    <div class="floating" style="left: 27%; animation-duration: 10s;">💐</div>
+    <div class="floating" style="left: 42%; animation-duration: 14s;">🌷</div>
+    <div class="floating" style="left: 57%; animation-duration: 11s;">❤️</div>
+    <div class="floating" style="left: 73%; animation-duration: 13s;">🌹</div>
+    <div class="floating" style="left: 88%; animation-duration: 10s;">💖</div>
+
+    <div class="wrapper">
+
+        <section class="page active">
+            <h1>For My Love 💖</h1>
+            <div class="emoji">🌹 💍 🌸</div>
+            <p>
+                I made this little story for you because one simple message was not enough.
+            </p>
+            <p>
+                Every page has something from my heart.
+            </p>
+            <p class="small">
+                Please read it slowly. I want you to feel every word.
+            </p>
+            <button onclick="nextPage()">Start Our Story 🌹</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 1: Ten Years</h2>
+            <div class="emoji">⏳❤️</div>
+            <p>
+                Ten years is not a small time.
+            </p>
+            <p>
+                In these years, life changed, situations changed, priorities changed,
+                and we both changed in many ways.
+            </p>
+            <p>
+                But one thing did not change for me:
+                <span class="heart">my feelings for you.</span>
+            </p>
+            <button onclick="nextPage()">Next Chapter 🌸</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 2: Where I Went Wrong</h2>
+            <div class="emoji">💔</div>
+            <p>
+                I know I hurt you.
+            </p>
+            <p>
+                In the beginning, I gave you time, attention, care, and love.
+                But slowly, I started taking you for granted.
+            </p>
+            <p>
+                I thought you would never go anywhere, so I stopped putting in the same effort.
+                That was my mistake.
+            </p>
+            <div class="quote">
+                I was busy with friends. I was busy with my own things.
+                I used goals and responsibilities as excuses.
+                But the truth is, when you needed me, I was not always there.
+            </div>
+            <button onclick="nextPage()">Keep Reading 🌹</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 3: Your Trust</h2>
+            <div class="emoji">🤍</div>
+            <p>
+                Now I understand why you have trust issues.
+            </p>
+            <p>
+                You trusted the version of me who gave love, care, and time.
+                Then later, I became careless with those same things.
+            </p>
+            <p>
+                I cannot blame you for feeling hurt.
+                Your pain is real, and I respect it.
+            </p>
+            <p>
+                I am not here to defend myself.
+                I am here to accept what I did wrong.
+            </p>
+            <button onclick="nextPage()">Next 🌷</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 4: My Apology</h2>
+            <div class="emoji">🙏❤️</div>
+            <p>
+                I am truly sorry for making you feel alone.
+            </p>
+            <p>
+                I am sorry for not giving you the time you deserved.
+            </p>
+            <p>
+                I am sorry for making excuses when all you needed was care, love, and presence.
+            </p>
+            <p>
+                I cannot change the past, but I can change how I stand with you from now on.
+            </p>
+            <button onclick="nextPage()">There Is More 💐</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 5: No More Excuses</h2>
+            <div class="emoji">🌹✨</div>
+            <p>
+                I do not want to delay anymore.
+            </p>
+            <p>
+                I do not want our relationship to stay only on calls, texts, waiting, and uncertainty.
+            </p>
+            <p>
+                I want to take a real step forward with respect, honesty, and commitment.
+            </p>
+
+            <div class="promise-grid">
+                <div class="promise">❤️ I will give you time, not excuses.</div>
+                <div class="promise">🌹 I will listen when you are hurt.</div>
+                <div class="promise">🤍 I will not take you for granted again.</div>
+                <div class="promise">💬 I will communicate instead of disappearing.</div>
+                <div class="promise">💍 I will take serious steps for our future.</div>
+                <div class="promise">🌸 I will prove love through actions, not only words.</div>
+            </div>
+
+            <button onclick="nextPage()">Next Surprise 💖</button>
+        </section>
+
+        <section class="page">
+            <h2>Chapter 6: The Step I Want To Take</h2>
+            <div class="emoji">👨‍👩‍👧‍👦 💍</div>
+            <p>
+                I want to tell my family about you.
+            </p>
+            <p>
+                I want us to talk to our parents.
+            </p>
+            <p>
+                I want to move our relationship toward marriage,
+                not with pressure, but with respect and sincere intention.
+            </p>
+            <p>
+                Many of my dreams and goals feel connected to you because I imagined my future with you in it.
+            </p>
+            <button onclick="showLetter()">Open My Small Letter 💌</button>
+
+            <div class="hidden-letter" id="letter">
+                <p>
+                    My love, I know I cannot rebuild trust in one day.
+                    I know words alone are not enough.
+                    But I want to start again with better actions, better care, and better commitment.
+                </p>
+                <p>
+                    I do not want to lose you because of my carelessness.
+                    I want to become the person who makes you feel safe, loved, respected, and chosen.
+                </p>
+                <button onclick="nextPage()">Go To Final Question 💍</button>
+            </div>
+        </section>
+
+        <section class="page proposal">
+            <div class="ring-box">💍</div>
+            <h2>The Final Question</h2>
+
+            <p>
+                I know your answer is your choice, and I will respect your heart.
+            </p>
+
+            <p>
+                But today, with honesty and love, I want to ask you:
+            </p>
+
+            <p class="big-question">
+                Will you allow me to tell my family about you?
+            </p>
+
+            <p class="big-question">
+                Will you let us talk to our parents and move toward marriage?
+            </p>
+
+            <p class="big-question">
+                Will you marry me? ❤️
+            </p>
+
+            <button onclick="finalMessage()">Open My Heart 🌹</button>
+            <button class="secondary-btn" onclick="respectMessage()">I Need Time 🤍</button>
+
+            <div class="hidden-letter" id="finalBox">
+                <p id="finalText"></p>
+                <button onclick="nextPage()">Write Your Answer 💌</button>
+            </div>
+        </section>
+
+        <section class="page">
+            <h2>Your Words Matter To Me 💌</h2>
+            <div class="emoji">🌹 🤍 💍</div>
+
+            <p>
+                Whatever you feel, you can write it here.
+            </p>
+            <p>
+                Your answer will come to me, and I will respect it with patience and honesty.
+            </p>
+
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="hidden" name="_subject" value="Proposal Website Reply">
+                <input type="text" name="_gotcha" style="display:none">
+
+                <label>Your Name</label>
+                <input type="text" name="name" placeholder="Write your name" required>
+
+                <label>Your Email or WhatsApp Optional</label>
+                <input type="text" name="contact" placeholder="Only if you want to share">
+
+                <label>Your Answer</label>
+                <select name="answer" required>
+                    <option value="">Choose one</option>
+                    <option value="Yes, I want to move forward">Yes, I want to move forward ❤️</option>
+                    <option value="I need time">I need time 🤍</option>
+                    <option value="I want to talk first">I want to talk first 💬</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label>Your Message</label>
+                <textarea name="message" placeholder="Write whatever is in your heart..." required></textarea>
+
+                <button type="submit">Send My Answer 💌</button>
+
+                <p class="form-note">
+                    Your words will be sent directly to him.
+                </p>
+            </form>
+
+            <div class="final-soft">
+                <p class="small">
+                    No pressure. No force. Only honesty, respect, and love.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const pages = document.querySelectorAll(".page");
+        const progressText = document.getElementById("progressText");
+
+        function updateProgress() {
+            progressText.innerText = "Page " + (currentPage + 1) + " of " + pages.length;
+        }
+
+        function nextPage() {
+            if (currentPage < pages.length - 1) {
+                pages[currentPage].classList.remove("active");
+                currentPage++;
+                pages[currentPage].classList.add("active");
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function showLetter() {
+            document.getElementById("letter").style.display = "block";
+        }
+
+        function finalMessage() {
+            const box = document.getElementById("finalBox");
+            const text = document.getElementById("finalText");
+            box.style.display = "block";
+            text.innerHTML =
+                "I do not want to only promise. I want to prove it. ❤️<br><br>" +
+                "I choose you, I respect you, and I want to build my future with you. 🌹💍";
+            confettiHearts();
+        }
+
+        function respectMessage() {
+            const box = document.getElementById("finalBox");
+            const text = document.getElementById("finalText");
+            box.style.display = "block";
+            text.innerHTML =
+                "I understand. 🤍<br><br>" +
+                "Trust takes time. I will not force you. " +
+                "I only want one honest chance to show you through my actions that I can be better.";
+        }
+
+        function confettiHearts() {
+            for (let i = 0; i < 35; i++) {
+                const heart = document.createElement("div");
+                heart.innerHTML = ["❤️", "🌹", "💖", "💍", "🌸"][Math.floor(Math.random() * 5)];
+                heart.style.position = "fixed";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.top = "-30px";
+                heart.style.fontSize = "28px";
+                heart.style.zIndex = "999";
+                heart.style.animation = "fall " + (Math.random() * 3 + 4) + "s linear forwards";
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }
+        }
+
+        updateProgress();
+    </script>
+
+</body>
+</html>
